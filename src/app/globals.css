@@ -8,11 +8,12 @@
   html {
     @apply scroll-smooth;
   }
+
+  body {
+    @apply text-gray-800; /* Semua teks berwarna abu-abu */
+  }
 }
 
 :root {
-  --base:white;
-  --font:black:
+  --base: white;
 }
-
-

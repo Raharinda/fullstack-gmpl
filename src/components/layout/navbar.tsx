@@ -1,14 +1,17 @@
 'use client'
 
-
 import React, { useState, useEffect } from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import classNames from 'classnames';
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,14 +21,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
-
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -33,6 +28,22 @@ const Navbar = () => {
     });
   };
 
+  const handleTentangKamiClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname !== '/') {
+      router.push('/?scrollTo=prologue');
+    } else {
+      document.getElementById('prologue')?.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  const navItems = [
+    { name: "Tentang Kami", path: "#prologue", onClick: handleTentangKamiClick },
+    { name: "Program", path: "/program" },
+    { name: "Galeri", path: "/galeri" },
+    { name: "Kontak", path: "/kontak" },
+  ];
   return (
     <nav
       className={classNames("fixed top-0 w-full z-50", {
@@ -43,31 +54,34 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Image
-              className="cursor-pointer"
-              src="icon.svg"
-              alt="Logo"
-              width={50}
-              height={50} 
-              onClick={handleScrollToTop}
-            />
+            <Link href="/">
+              <Image
+                className="cursor-pointer"
+                src="/icon.svg"
+                alt="Logo"
+                width={50}
+                height={50} 
+                onClick={handleScrollToTop}
+              />
+            </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {["Tentang Kami", "Program", "Kontak"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() =>
-                    handleScrollToSection(
-                      item === "Tentang Kami"
-                        ? "prologue"
-                        : item.toLowerCase().replace(" ", "-")
-                    )
-                  }
-                  className="text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  className={classNames(
+                    "px-3 py-2 rounded-md text-sm font-medium",
+                    {
+                      "bg-gray-200 text-gray-900": pathname === item.path,
+                      "text-gray-800 hover:bg-gray-200": pathname !== item.path,
+                    }
+                  )}
+                  onClick={item.onClick}
                 >
-                  {item}
-                </button>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>
@@ -109,20 +123,21 @@ const Navbar = () => {
         )}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {["Tentang Kami", "Program", "Kontak"].map((item) => (
-            <button
-              key={item}
-              onClick={() =>
-                handleScrollToSection(
-                  item === "Tentang Kami"
-                    ? "prologue"
-                    : item.toLowerCase().replace(" ", "-")
-                )
-              }
-              className="w-full text-left text-gray-800 hover:bg-gray-200 block px-3 py-2 rounded-md text-base font-medium"
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.path}
+              className={classNames(
+                "block px-3 py-2 rounded-md text-base font-medium",
+                {
+                  "bg-gray-200 text-gray-900": pathname === item.path,
+                  "text-gray-800 hover:bg-gray-200": pathname !== item.path,
+                }
+              )}
+              onClick={item.onClick || (() => setIsMenuOpen(false))}
             >
-              {item}
-            </button>
+              {item.name}
+            </Link>
           ))}
         </div>
 
