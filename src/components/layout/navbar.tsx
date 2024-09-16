@@ -37,9 +37,45 @@ const Navbar = () => {
               <Image src="/icon.svg" alt="Logo" width={50} height={50} />
             </Link>
           </div>
-          <div className="flex-1 flex items-center justify-center">
-            {/* ... (rest of the desktop menu code remains unchanged) ... */}
-          </div>
+          <div className="hidden md:flex items-center space-x-4">
+              <Link
+                href="#prologue"
+                className={classNames("px-3 py-2 rounded-md text-sm font-medium", {
+                  "bg-gray-200 text-gray-900": pathname === "#prologue",
+                  "text-gray-800 hover:bg-gray-200": pathname !== "#prologue",
+                })}
+                onClick={handleTentangKamiClick}
+              >
+                Tentang Kami
+              </Link>
+              <Link
+                href="/program"
+                className={classNames("px-3 py-2 rounded-md text-sm font-medium", {
+                  "bg-gray-200 text-gray-900": pathname === "/program",
+                  "text-gray-800 hover:bg-gray-200": pathname !== "/program",
+                })}
+              >
+                Program
+              </Link>
+              <Link
+                href="/galeri"
+                className={classNames("px-3 py-2 rounded-md text-sm font-medium", {
+                  "bg-gray-200 text-gray-900": pathname === "/galeri",
+                  "text-gray-800 hover:bg-gray-200": pathname !== "/galeri",
+                })}
+              >
+                Galeri
+              </Link>
+              <Link
+                href="/kontak"
+                className={classNames("px-3 py-2 rounded-md text-sm font-medium", {
+                  "bg-gray-200 text-gray-900": pathname === "/kontak",
+                  "text-gray-800 hover:bg-gray-200": pathname !== "/kontak",
+                })}
+              >
+                Kontak
+              </Link>
+            </div>
           <div className="hidden md:flex items-center space-x-4">
             <button className="text-gray-800 hover:bg-gray-200 px-5 py-2 rounded-md text-sm font-medium">
               Login
