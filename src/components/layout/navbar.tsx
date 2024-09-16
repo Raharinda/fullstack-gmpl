@@ -44,6 +44,11 @@ const Navbar = () => {
     { name: "Galeri", path: "/galeri" },
     { name: "Kontak", path: "/kontak" },
   ];
+
+  const handleNavigate = (path:string) => {
+    router.push(path);
+  };
+  
   return (
     <nav
       className={classNames("fixed top-0 w-full z-50", {
