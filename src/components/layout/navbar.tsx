@@ -19,6 +19,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   const handleTentangKamiClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const target = pathname === '/' ? 'prologue' : '/?scrollTo=prologue';
