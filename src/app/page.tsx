@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ImageSlider from '../components/slider';
 import { useSearchParams } from 'next/navigation';
 
+
 function HomeContent() {
   const searchParams = useSearchParams();
 
