@@ -85,7 +85,7 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading..</div>}>
       <HomeContent />
     </Suspense>
   );
